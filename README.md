@@ -5,3 +5,4 @@
 * https://github.com/iobroker-community-adapters/ioBroker.mihome-vacuum
 * https://github.com/al-one/hass-xiaomi-miot/blob/master/custom_components/xiaomi_miot/core/xiaomi_cloud.py
 
+Main files are used for Edomi ( http://www.edomi.de/ )
