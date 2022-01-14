@@ -305,6 +305,8 @@
  $token = '';
  
  if (!empty($E[2]['value'])) {
+     restoreCredentials:
+
      if (strlen($V[5]) > 3) {
          // cloud login values exist. ReUse them
          exec_debug(2, "Cloud-Daten aus Cache verwenden. Kein Login!");
@@ -352,7 +354,21 @@
              }
          }
      }
+ } else if (!empty($E[7]['value'])) {
+     $cloudToken = $E[7]['value'];
+                
+     exec_debug(1, "using Xiaomi cloud token=". $cloudToken);
+                
+     if (strlen ($cloudToken) > 10) {
+         list ($serviceToken, $ssecurity, $userId) = explode ("\n",$cloudToken);
+                    
+         $V[3] = $serviceToken;
+         $V[4] = $ssecurity;
+         $V[5] = $userId;
 
+         exec_debug(1, "restoreSession by cloud token");
+         goto restoreCredentials;
+     }
  } else {
      exec_debug (1, "Keine Benutzerdaten eingegeben! Lokale IP erforderlich");
  }
