@@ -1288,8 +1288,6 @@ class Crypt_Rc4 {
              $result = $this->request ($url,
                                        $payload, "POST", $requestHeaders, $cookie, $this->useRC4);
 
-             print "result = $result\n";
-
              if (strtolower($result['message']) == 'ok')
                  return ($this->cloudDeviceStatus->processResult ($result['result']['list']));
          }
