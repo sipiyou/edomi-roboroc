@@ -1,5 +1,5 @@
 ###[DEF]###
-[name	    = Xiaomi Roboroc 0.999]
+[name	    = Xiaomi Roboroc 1.0]
 
 [e#1	    trigger= Abfragen]
 [e#2	    = Xiaomi-Cloud user ]
@@ -304,7 +304,7 @@
  $ip = '';
  $token = '';
  
- if (!empty($E[2]['value']) || !empty($E[7]['value'])) {
+ if (!empty($E[2]['value'])) {
      if (strlen($V[5]) > 3) {
          // cloud login values exist. ReUse them
          exec_debug(2, "Cloud-Daten aus Cache verwenden. Kein Login!");
@@ -572,10 +572,14 @@
                  if ( $roboroc->Info_Status->isMapPresent()) {
                      if ($cloud->isAccessible) {
                          $url = $roboroc->getMapV1();
-                            
+
+                         $retryGetMap = 0;
+
                          if ($url != "retry") {
                              exec_debug (2, "map-url: $url");
                              RetryMapGet:
+                             $retryGetMap++;
+
                              if ($cloud->getMap ($url)) {
                                  exec_debug (2, "mapv1 url= $url");
                                  
@@ -587,7 +591,7 @@
                                      exec_debug (1, "url ist nicht gültig!");
                                  }
                              } else {
-                                 if ($cloud->credentialsChanged)
+                                 if ($cloud->credentialsChanged && $retryGetMap < 3)
                                      goto RetryMapGet;
                              }
                          } else {
@@ -668,12 +672,6 @@
      }
  }
 
- /*   original Crypt_Rc4 lib comes from 
-  *   https://pear.php.net/reference/Crypt_RC4-latest/__filesource/fsource_Crypt__Crypt_RC4-1.0.3CryptRc4.php.html
-  *   
-  *   added iteration an minor modification to the main code
-  *
-  */
 class Crypt_Rc4 {
     var $s= array();
     var $i= 0;
@@ -708,6 +706,13 @@ class Crypt_Rc4 {
         $this->i = $this->j = 0;
     }
  
+    /**
+     * Encrypt function
+     *
+     * @param  string paramstr     - string that will encrypted
+     * @return void 
+     * @access public
+     */
     function iterate ($len) {
         for ($c= 0; $c < $len; $c++) {
             $this->i = ($this->i + 1) % 256;
@@ -794,14 +799,13 @@ class Crypt_Rc4 {
   *  14.06.2021 -   0.992     getActiveMapIndex
   *  12.10.2021 -   0.994     Bugfix in help
   *  03.01.2022 -   0.999     support for new RC4 encrypted api calls
-
+  *  14.01.2022 -   1.0       bugfix for getmapurl + deadlock upon getmap
 
   * This project uses informations retrived from these sources:
   * 
   * https://github.com/marcelrv/XiaomiRobotVacuumProtocol
   * https://python-miio.readthedocs.io/en/latest/vacuum.html
   * https://github.com/iobroker-community-adapters/ioBroker.mihome-vacuum
-  * https://github.com/al-one/hass-xiaomi-miot/blob/master/custom_components/xiaomi_miot/core/xiaomi_cloud.py
   */
 
  class udpHandler {
@@ -1069,7 +1073,7 @@ class Crypt_Rc4 {
      public $credentialsChanged; //  this state is used to notify external class if credentials have changed
 
      public function __construct ($eMail, $password, $serverLocation, $xiaomiDeviceID) {
-         $this->useRC4 = 1;
+         $this->useRC4 = true;
 
          $this->userName = $eMail;
          $this->password = $password;
@@ -1196,8 +1200,10 @@ class Crypt_Rc4 {
 
          array_push ($postArray, $signed_nonce);
 
-         $signString = base64_encode(sha1(utf8_encode(implode ("&",$postArray)),true));
+         //printf ("Signstring: %s\n", utf8_encode(implode ("&",$postArray)));
 
+         $signString = base64_encode(sha1(utf8_encode(implode ("&",$postArray)),true));
+         //print "Encoded Signstring: $signString\n";
          return ($signString);
      }
 
@@ -1218,8 +1224,13 @@ class Crypt_Rc4 {
      private function generateSignature ($path, &$params) {
          $nonce = $this->randomBytes(8) . pack('N', intval(round(time()/60)));
 
+         // REMOVE THIS FOR LIVE TESTING:
+         //$this->ssecurity = base64_decode("tEV6dhfQXfv3gdLaQ2nIjw==");
+         //$nonce = base64_decode ("KTyoHMpDe2cBoWKO");
+
          $this->signed_nonce = base64_encode(hash ("sha256",$this->ssecurity. $nonce, true));
 
+         // printf ("path: %s signed nonce: $this->signed_nonce , sec: %s  - %s\n",$path, $this->ssecurity, base64_encode ($nonce));
          $postArray = array ();
          
          if ($this->useRC4) {
@@ -1232,6 +1243,12 @@ class Crypt_Rc4 {
              $params['signature'] = $this->generateEncodedSignature ($path, "POST",$this->signed_nonce, $params);
              $params['ssecurity'] = base64_encode($this->ssecurity);
              $params["_nonce"] = base64_encode($nonce);
+
+             /*
+             foreach ($params as $k => $v) {
+                 print "$k => $v\n";
+             }
+             */
          } else {
              if (!empty($path)) 
                  array_push ($postArray, $path);
@@ -1254,10 +1271,12 @@ class Crypt_Rc4 {
              $cookie = $this->getSessionCookie();
 
              $requestHeaders = array (
-                 "x-xiaomi-protocal-flag-cli: PROTOCAL-HTTP2",
-                 "Accept-Encoding: identity",
-                 "MIOT-ENCRYPT-ALGORITHM: ENCRYPT-RC4",
+                 "x-xiaomi-protocal-flag-cli: PROTOCAL-HTTP2"
              );
+
+             if ($this->useRC4)
+                 array_push ($requestHeaders, "Accept-Encoding: identity","MIOT-ENCRYPT-ALGORITHM: ENCRYPT-RC4");
+
              $payload = array (
                  "data" => '{"getVirtualModel":true,"getHuamiDevices":1,"get_split_device":false,"support_smart_home":true}'
 //'{"getVirtualModel":false,"getHuamiDevices":0}'
@@ -1267,7 +1286,9 @@ class Crypt_Rc4 {
              $this->generateSignature ("/home/device_list", $payload);
 
              $result = $this->request ($url,
-                                       $payload, "POST", $requestHeaders, $cookie, true);
+                                       $payload, "POST", $requestHeaders, $cookie, $this->useRC4);
+
+             print "result = $result\n";
 
              if (strtolower($result['message']) == 'ok')
                  return ($this->cloudDeviceStatus->processResult ($result['result']['list']));
@@ -1284,6 +1305,10 @@ class Crypt_Rc4 {
              $requestHeaders = array (
                  "x-xiaomi-protocal-flag-cli: PROTOCAL-HTTP2",
              );
+
+             if ($this->useRC4)
+                 array_push ($requestHeaders, "Accept-Encoding: identity","MIOT-ENCRYPT-ALGORITHM: ENCRYPT-RC4");
+
              $payload = array (
                  "data" => '{"obj_name":"'.$mapURL.'"}'
 			 );
@@ -1291,9 +1316,10 @@ class Crypt_Rc4 {
              $this->generateSignature ("/home/getmapfileurl", $payload);
 
              $result = $this->request ($url,
-                                       $payload, "POST", $requestHeaders, $cookie, true);
+                                       $payload, "POST", $requestHeaders, $cookie, $this->useRC4);
 
              $res = strtolower($result['message']);
+
              if ($res == 'ok') {
                  $ret = $this->cloudMap->processResult ($result['result']);
                  return ($ret);
