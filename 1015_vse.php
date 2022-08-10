@@ -73,8 +73,6 @@ VSE_VSEID_CONSTRUCT=function(elementId,obj) {
     const tank = "data:image/png;base64,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"
     const spaceship = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAFMklEQVRYR+2YfUxVZRjAf+cAfiAOHZaIFxXD0g2V3LVipZFuOrRcm6KBHw0b/GHERpFGfoQokcV0M6x5mbiKyFK31NRls666RmUrP0gtUVQU8IP8AEGBe297zznXe+71fsBB+4v3D8Z97/M85/c+X+9zj8SDW7eBUJ25XsDdrpqXumpAp29jSoZMTDxsXCS2+wJNXbX/YAFTVsqMeg5WTO4GNBIZG90eNOI3l063B434zwK8oCnGkrISXRWfARzAT0CGEeNCp6ttppHIYWFExYIkQc4mCOsHeclw6wY01MC/taIXip5oaHUdMPmtMBa85/7w+jq4egX2bQRrWTegv9A00u1BQ6l7T6nbgx2tYiGXCsia7yqAKqAzHowFEjR9O1Cu9Um/Mewo4ETgQJAsYXc4cDi4CER3ErBGkjDJkoTNLvo3zwMHA2VYRwGFMaujLonk9D/Z9l29IcBZL0aatpY8iTRor+BKFId+oIDj48Opqm7m+s02Q4D9w0NMsTGhHD5y8+EAYhoJDZegpdEQIL37mogYDBdPPSTA9w9B+XKotBoDjEs0kboK3p3QacBSYIEuHyZ5JLCSg/gDnPkotLeqJuRgyN/veRfX4B9QFOKPOobPgYXOIjk8tFc/85LoZ8ms2iMqdSGwWSfsH3D+CpgRzkcrRioqb+efgoKD8INFPywEAkyTJam0OHYaa2p+5vydG78D4+8BxodFmnePnsuQX9Zhc9gDAV4CHgOuKXexBlhVIc4BsQkHPAEHAGeISxzsJ8RpQZJceuGZbKYf/5IjTfXugIBZ5zHvgJZTsHkJVOxwic5dCnMWKx50A7SchN2fwo71Ltn4qTB7ma8cTANEqjmXB2DUE2bS18OqaWC3eQfcdUtVbm50mQnti+jc9wHuvKkOsXrZM2dVPe9FkoYcVMryPVCSBbV/ewCaRppZVALLEvWAInHF64zRwIc4AZ14l8/DpdMqYN5MNq0TYvBa9nHI264CDh4BA4eqGseP6gEXix1xXK0gVcDVVvgkXbSigIBlQKvyELFCesL2K7oIALOjoKVJERGM92QdDtde7zD4plbVa9Ve1aREu/5XfrbQA5hnDHBLDfQJdwdzfkoeRG56JAW5jyNH7QWL5qGMsdhrk1ha+A+FJfWwtc5d32aDE5VwpwnykwwBVgLi2FMIADh8oIMRMaF8b73mBjg1cQCnq5s5e1nqCOA+IAo5KM53iEeMM7PWCgWpcP6EeuLgECj+FWTnlOXhyOIsOKYNJELmYzGFAW8kgF1MVMCYiZCpq2S9CSGT+TS0t6m7EdGQutpHDjoBvQfz/9mtOg0tzT4AJcmseEy/JBm+vgjBIoe9rJxJcPaY9oUEX4gZFpgvZlMl+WH4GCjS32CauMhD4bnUIeDQvK1UGtDeLvTdqljcCi97IAQBawLl4ISeA5jcP4a8c1a3HMwblsj+69UcunutIzm4BLB5PP9bcfv4G1iFO1spP+e7iueYyIqII3fIBAZVFLkB1iXkUHjhEOsbKtUo6JdSxX+pVbx6uvhGhEhLRI8g+kmuYF9KPnWKtILJEf29U0s4Q8T1vhVo5I8QLdpDyxLZI+yl/WNf5ak/LNy2tYkS/UBpSzlbVNGiV8TfKOCdPkEhWb+Ny2Dy0c+ob23a5eVFkvBcg6/jBAL0prf1kZA+s8pHzWRG5Ve02NsKgaWAnXkFqnyZ+Kj8AizoLYfk7oxLIfXkdq623d4GJHfGt0YA1wLZuodkAhsUQNfbMlGOAvB1oFgnuw54szOA/wGAoJRHR2vq3wAAAABJRU5ErkJggg==";
 
-    VSE_VSEID_CreateElement(elementId,obj);
-
     const myMapColors = {
         "wild" : [
             /*
@@ -121,7 +119,9 @@ VSE_VSEID_CONSTRUCT=function(elementId,obj) {
     } else if (obj.dataset.var1 === 'spaceship') {
         imgRobot.src = spaceship;
     }
-
+    
+    VSE_VSEID_CreateElement(elementId,obj,myMapColors[obj.dataset.var2][0]);
+    
     function class_XiaomiView() {
         class XiaomiVSEBuffer extends Uint8Array{readUInt8(a){return this[a]}readUInt16LE(a){return(this[a+1]<<8)+this[a]}readInt16LE(a){var e=(this[a+1]<<8)+this[a];return e>=Math.pow(2,15)&&(e-=Math.pow(2,16)),e}readUInt32LE(a){return(this[a+3]<<24)+(this[a+2]<<16)+(this[a+1]<<8)+this[a+0]}readInt32LE(a){var e=(this[a+3]<<24)+(this[a+2]<<16)+(this[a+1]<<8)+this[a+0];return e>=Math.pow(2,31)&&(e-=Math.pow(2,32)),e}readNbytes(a,e){for(var r=[],t=0;t<e;t++)r.push(this[a+t]);return String.fromCharCode.apply(null,r)}}const XiaomiRRTools={DIMENSION_PIXELS:1024,DIMENSION_MM:51200},RRMapParser=function(){};RRMapParser.TYPES={CHARGER_LOCATION:1,IMAGE:2,PATH:3,GOTO_PATH:4,GOTO_PREDICTED_PATH:5,CURRENTLY_CLEANED_ZONES:6,GOTO_TARGET:7,ROBOT_POSITION:8,FORBIDDEN_ZONES:9,VIRTUAL_WALLS:10,CURRENTLY_CLEANED_BLOCKS:11,MFBZS_AREA:12,OBSTACLES:13,IGNORED_OBSTACLES:14,OBSTACLES_2:15,IGNORED_OBSTACLES_2:16,CARPET_MAP:17,DIGEST:1024},RRMapParser.PARSEBLOCK=function a(e,r,t){if(t=t||{},e.length<=r)return t;let E=0;const s=e.readUInt16LE(0+r),n=e.readUInt16LE(2+r),R=e.readUInt32LE(4+r);switch(s){case RRMapParser.TYPES.ROBOT_POSITION:case RRMapParser.TYPES.CHARGER_LOCATION:t[s]={position:[e.readUInt16LE(8+r),e.readUInt16LE(12+r)],angle:R>=12?e.readInt32LE(16+r):0};break;case RRMapParser.TYPES.IMAGE:n>24&&(E=4);const a={segments:{count:E?e.readInt32LE(8+r):0,id:[]},position:{top:e.readInt32LE(8+E+r),left:e.readInt32LE(12+E+r)},dimensions:{height:e.readInt32LE(16+E+r),width:e.readInt32LE(20+E+r)},pixels:[]};if(a.position.top=XiaomiRRTools.DIMENSION_PIXELS-a.position.top-a.dimensions.height,a.dimensions.height>0&&a.dimensions.width>0){a.pixels={floor:[],obstacle:[],segments:[]};for(let t,s=0;s<R;s++)switch(7&e.readUInt8(24+E+r+s)){case 0:break;case 1:a.pixels.obstacle.push(s);break;default:a.pixels.floor.push(s),0!==(t=(248&e.readUInt8(24+E+r+s))>>3)&&(a.segments.id.includes(t)||a.segments.id.push(t),a.pixels.segments.push(s|t<<21))}}t[s]=a;break;case RRMapParser.TYPES.PATH:case RRMapParser.TYPES.GOTO_PATH:case RRMapParser.TYPES.GOTO_PREDICTED_PATH:const o=[];for(let a=0;a<R;a+=4)o.push([e.readUInt16LE(20+r+a),e.readUInt16LE(20+r+a+2)]);t[s]={current_angle:e.readUInt32LE(16+r),points:o};break;case RRMapParser.TYPES.GOTO_TARGET:t[s]={position:[e.readUInt16LE(8+r),e.readUInt16LE(10+r)]};break;case RRMapParser.TYPES.CURRENTLY_CLEANED_ZONES:const i=[];if(e.readUInt32LE(8+r)>0){for(let a=0;a<R;a+=8)i.push([e.readUInt16LE(12+r+a),e.readUInt16LE(12+r+a+2),e.readUInt16LE(12+r+a+4),e.readUInt16LE(12+r+a+6)]);t[s]=i}break;case RRMapParser.TYPES.FORBIDDEN_ZONES:const I=[];if(e.readUInt32LE(8+r)>0){for(let a=0;a<R;a+=16)I.push([e.readUInt16LE(12+r+a),e.readUInt16LE(12+r+a+2),e.readUInt16LE(12+r+a+4),e.readUInt16LE(12+r+a+6),e.readUInt16LE(12+r+a+8),e.readUInt16LE(12+r+a+10),e.readUInt16LE(12+r+a+12),e.readUInt16LE(12+r+a+14)]);t[s]=I}break;case RRMapParser.TYPES.VIRTUAL_WALLS:const p=[];if(e.readUInt32LE(8+r)>0){for(let a=0;a<R;a+=8)p.push([e.readUInt16LE(12+r+a),e.readUInt16LE(12+r+a+2),e.readUInt16LE(12+r+a+4),e.readUInt16LE(12+r+a+6)]);t[s]=p}break;case RRMapParser.TYPES.CURRENTLY_CLEANED_BLOCKS:const T=[];if(e.readUInt32LE(8+r)>0){for(let a=0;a<R;a++)T.push(e.readUInt8(12+r+a));t[s]=T}break;case RRMapParser.TYPES.OBSTACLES_2:const L=e.readUInt32LE(8+r),P=[];if(L>0){const a=R/L;for(let t=0;t<L;t++){const E=12+r+t*a,s=e.readUInt16LE(E),n=e.readUInt16LE(E+2),R=e.readUInt16LE(E+4),o=e.readUInt16LE(E+6),i=e.readUInt16LE(E+8);let I=0,p=[];28==a?0==(255&e.readUInt8(12+r+t+12))||(p=e.readNbytes(E+12,16)):I=getUInt32LE(E+12),P.push([s,n,R,o,i,I,p])}t[s]=P}}return a(e,r+R+n,t)},RRMapParser.PARSE=function(a){if(114===a[0]&&114===a[1]){return{header_length:a.readUInt16LE(2),data_length:a.readUInt16LE(4),version:{major:a.readUInt16LE(8),minor:a.readUInt16LE(10)},map_index:a.readUInt16LE(12),map_sequence:a.readUInt16LE(16)}}return{}},RRMapParser.PARSEDATA=function(a){if(!this.PARSE(a).map_index)return null;const e=RRMapParser.PARSEBLOCK(a,20),r={};return e[RRMapParser.TYPES.IMAGE]&&(r.image=e[RRMapParser.TYPES.IMAGE],[{type:RRMapParser.TYPES.PATH,path:"path"},{type:RRMapParser.TYPES.GOTO_PREDICTED_PATH,path:"goto_predicted_path"}].forEach(a=>{e[a.type]&&(r[a.path]=e[a.type],r[a.path].points=r[a.path].points.map(a=>(a[1]=XiaomiRRTools.DIMENSION_MM-a[1],a)),r[a.path].points.length>=2&&(r[a.path].current_angle=180*Math.atan2(r[a.path].points[r[a.path].points.length-1][1]-r[a.path].points[r[a.path].points.length-2][1],r[a.path].points[r[a.path].points.length-1][0]-r[a.path].points[r[a.path].points.length-2][0])/Math.PI))}),e[RRMapParser.TYPES.CHARGER_LOCATION]&&(r.charger=e[RRMapParser.TYPES.CHARGER_LOCATION].position,r.charger[1]=XiaomiRRTools.DIMENSION_MM-r.charger[1]),e[RRMapParser.TYPES.ROBOT_POSITION]&&(r.robot=e[RRMapParser.TYPES.ROBOT_POSITION].position,r.robot[1]=XiaomiRRTools.DIMENSION_MM-r.robot[1]),e[RRMapParser.TYPES.GOTO_TARGET]&&(r.goto_target=e[RRMapParser.TYPES.GOTO_TARGET].position,r.goto_target[1]=XiaomiRRTools.DIMENSION_MM-r.goto_target[1]),e[RRMapParser.TYPES.CURRENTLY_CLEANED_ZONES]&&(r.currently_cleaned_zones=e[RRMapParser.TYPES.CURRENTLY_CLEANED_ZONES],r.currently_cleaned_zones=r.currently_cleaned_zones.map(a=>(a[1]=XiaomiRRTools.DIMENSION_MM-a[1],a[3]=XiaomiRRTools.DIMENSION_MM-a[3],a))),e[RRMapParser.TYPES.FORBIDDEN_ZONES]&&(r.forbidden_zones=e[RRMapParser.TYPES.FORBIDDEN_ZONES],r.forbidden_zones=r.forbidden_zones.map(a=>(a[1]=XiaomiRRTools.DIMENSION_MM-a[1],a[3]=XiaomiRRTools.DIMENSION_MM-a[3],a[5]=XiaomiRRTools.DIMENSION_MM-a[5],a[7]=XiaomiRRTools.DIMENSION_MM-a[7],a))),e[RRMapParser.TYPES.VIRTUAL_WALLS]&&(r.virtual_walls=e[RRMapParser.TYPES.VIRTUAL_WALLS],r.virtual_walls=r.virtual_walls.map(a=>(a[1]=XiaomiRRTools.DIMENSION_MM-a[1],a[3]=XiaomiRRTools.DIMENSION_MM-a[3],a))),e[RRMapParser.TYPES.CURRENTLY_CLEANED_BLOCKS]&&(r.currently_cleaned_blocks=e[RRMapParser.TYPES.CURRENTLY_CLEANED_BLOCKS]),e[RRMapParser.TYPES.OBSTACLES_2]&&(r.obstacles2=e[RRMapParser.TYPES.OBSTACLES_2],r.obstacles2=r.obstacles2.map(a=>(a[1]=XiaomiRRTools.DIMENSION_MM-a[1],a)))),r};
 
@@ -202,18 +202,18 @@ d=(g[h++]|g[h++]<<8|g[h++]<<16|g[h++]<<24)>>>0;(a.length&4294967295)!==d&&n(Erro
             return (myColor);
         }
             
-            this.init = function (imgRobot, imgCharger, imgObstacle, segmentColors) {
-            this.imgRobot = imgRobot;
-            this.imgCharger = imgCharger;
-            this.imgObstacle = imgObstacle;
-            this.segmentColors = segmentColors;
-            this.selectedSegments = [];
-            this.floor = '#dfdfdf';
-            this.obstacle = '#5e777c';
-            this.path = '#ffffff';
-            this.mapParsed = null;
-            this.robotIsCleaning = false;
-            
+        this.init = function (imgRobot, imgCharger, imgObstacle, segmentColors) {
+	    this.imgRobot = imgRobot;
+	    this.imgCharger = imgCharger;
+	    this.imgObstacle = imgObstacle;
+	    this.segmentColors = segmentColors;
+	    this.selectedSegments = [];
+	    this.floor = '#dfdfdf';
+	    this.obstacle = '#5e777c';
+	    this.path = '#ffffff';
+	    this.mapParsed = null;
+	    this.robotIsCleaning = false;
+	    this.repeatCleaning = 1;
             //console.log ("segmentColorsInit: "+ this.segmentColors+ "len = "+this.segmentColors.length + "segColors: "+ segmentColors.length);
         }
         
@@ -348,7 +348,7 @@ VSE_VSEID_clickControl=function(elementId,long) {
                 visuElement_clearTimeout(elementId,1);
             } else {
                 visuElement_setTimeout (elementId, 1, obj.dataset.var3, function(id) {
-                    visuElement_setKoValue(elementId, 2, veVar.XiaomiView.selectedSegments.toString());
+                    visuElement_setKoValue(elementId, 2, veVar.XiaomiView.selectedSegments.toString()+";"+veVar.XiaomiView.repeatCleaning);
                     veVar.XiaomiView.selectedSegments = [];
                 });
             }
@@ -579,12 +579,13 @@ VSE_VSEID_CanvasMap = function (elementId) {
     
     let canvas_final = document.getElementById("canvasFinal"+elementId);
     let ctx_final = canvas_final.getContext('2d');
-    
+
     var trimmed = ctx.getImageData(minX, minY, maxX-minX, maxY-minY);
     canvas.width = maxX-minX;
     canvas.height = maxY-minY;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.putImageData(trimmed,0,0);
+
 
     var rotated = 0;
     if (canvas.height > canvas.width) {
@@ -631,7 +632,7 @@ VSE_VSEID_calculateAspectRatioRotationFit = function (destination, source, rotat
         dy = Math.abs(newHeight - destination.width)/2;
     }
 
-    //console.log ("dx: "+dx+" dy: "+dy+ "newW: "+newWidth+ " NewH: "+newHeight+ "origW: "+destination.width+" origH: "+destination.height);
+    //console.log ("dx: "+dx+" dy: "+dy+ "newW: "+newWidth+ " NewH: "+newHeight+ "origW: "+destination.width+" origH: "+destination.height+ " radio: "+ratio);
     
     return { x:dx , y:dy, width: newWidth , height: newHeight };
 }
@@ -651,16 +652,37 @@ VSE_VSEID_rotateCanvas = function (img, angle) {
     ctximg.drawImage(img, (100 / 2) - (img.width / 2), (100 / 2) - (img.height / 2));
     return canvasimg;
 };
+
+  VSE_VSEID_RepeatClicked = function (elementId) {
+      var veVar=visuElement_getGlobal(elementId);
+
+      let rC = veVar.XiaomiView.repeatCleaning;
+      if (++rC >3) rC = 1;
+
+      veVar.XiaomiView.repeatCleaning = rC;
+      
+      document.getElementById("VSE_VSEID_repeat"+elementId).innerHTML = rC+"x";
+      return;
+  }
+  
 ###[/VISU.JS]###
 
 ###[SHARED.JS]###
- VSE_VSEID_CreateElement=function(elementId,obj) {
-     
+  VSE_VSEID_CreateElement=function(elementId,obj, buttonColor) {
      var mWidthReal = parseInt(obj.style.width);
      var mHeightReal = parseInt(obj.style.height);
+     var centerButton = Math.trunc ((mWidthReal - 50)/2);
      
+     var myStyle = "<style>.button {min-width: 50px;min-height: 50px;font-family: sans-serif;font-size: 22px;font-weight: 700;background:"+buttonColor+";border:none;border-radius:100px;box-shadow:12px 12px 24px rgba(79,209,197,.25);transition: all 0.3s ease-in-out 0s;cursor: pointer;outline: none;position: absolute;top:20px; left:"+centerButton+"px;padding: 10px;} \
+ .button::before {content: '';border-radius: 1000px;min-width: calc(300px + 12px);min-height: calc(60px + 12px);border: 6px solid #FFFFCB;box-shadow: 0 0 60px rgba(0,25,203,.64);position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);opacity: 0;transition: all .3s ease-in-out 0s;} \
+.button:hover, button:focus {transform: scale(1.2);} \
+.button::after {content: '';width: 30px; height: 30px;border-radius: 100%;border: 2px solid #FF0000;position: absolute;z-index:-1;top:50%;left:50%;transform: translate(-50%, -50%);animation: ring 3s infinite;}  @keyframes ring {0% {width: 10px;  height: 10px;  opacity: 1;}  100% {width: 100px;  height: 100px;  opacity: 0;}</style>";
+
+     var button = '<button class="button" id="VSE_VSEID_repeat'+elementId+'" onclick="VSE_VSEID_RepeatClicked ('+elementId+')">1x</button>';
      var n = '<canvas id="canvasFinal'+elementId+'" width="'+mWidthReal+'" height="'+mHeightReal+'"></canvas>';
-     obj.innerHTML = n;
+
+     obj.innerHTML = myStyle;
+     obj.innerHTML += n+button;
  }
 ###[/SHARED.JS]###
 
@@ -735,6 +757,6 @@ Extern eingesetzte und veränderte JS-Libs:
   <li>mapCreater.js + RRMapParser.js aus iobroker adaptiert, optimiert und erweitert</li>
 </ul>
 
-(w) by Nima Ghassemi Nejad &lt;ngn928@web.de&gt; - Version 0.57
+(w) by Nima Ghassemi Nejad &lt;ngn928@web.de&gt; - Version 0.58
 
 ###[/HELP]###

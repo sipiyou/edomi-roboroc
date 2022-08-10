@@ -1,5 +1,5 @@
 ###[DEF]###
-[name	    = Xiaomi Roboroc 1.0]
+[name	    = Xiaomi Roboroc 1.01g]
 
 [e#1	    trigger= Abfragen]
 [e#2	    = Xiaomi-Cloud user ]
@@ -22,7 +22,8 @@
 [e#20       = Segment-Reinigung]
 
 [e#23       = Wartungsrückstellung]
-[e#24       = Saugstufe]
+[e#24       = Saug-Stufe]
+[e#25       = Saug-Stufe, Wisch-Modus, Mop-Modus]
  
 [e#30       = Roboter automatisch befreien #init=3]
 [e#40       = Gültigkeit Statistiken #init=24]
@@ -34,8 +35,9 @@
 [a#4        = Status]
 [a#5        = Reinigung aktiv]
 [a#6        = Wischeinheit verbunden]
-[a#7        = Saugmodus]
-
+[a#7        = Saugmodus (Text)]
+[a#8        = Saugmodus, Wischmodus, Wischart]
+ 
 [a#10       = Xiaomi Cloud Token]
 
 [a#12       = verfügbare Karten]
@@ -47,7 +49,8 @@
 [a#20       = bisherige Reinigungszeit]
 [a#21       = bisherige Fläche]
 [a#22       = bisherige Reinigungen]
-
+[a#23       = Anzahl Absaugungen]
+ 
 [a#24       = Filter]
 [a#25       = Seitenbürste]
 [a#26       = Hauptbürste]
@@ -76,118 +79,199 @@
 
 
 ###[HELP]###
- E1  : Trigger
- E2  : Benutzername aus der Xiaomi-App (E-Mail Adresse)
- E3  : Passwort aus der Xiaomi-App
- E4  : Xiaomi-Server-Region: (de, us, ru, sg).
-       Das Feld muss leer gelassen werden wenn der Roboter bei "Mainland China" angemeldet ist.
-       Das ist insbesondere bei mi robot vacuum v1 der Fall.
+<h1>Eingänge</h1>
+
+<h2>Benutzerdaten</h2>
+E1 : Trigger
+      Bitte keine komplexen Trigger-Logiken an diese Eingänge hängen:
+      Einfach nur eine '1' senden. Der Eingang <b>darf</b> nicht zurückgesetzt werden!
+
+E2 : Benutzername aus der Xiaomi-App (E-Mail Adresse)
+E3 : Passwort aus der Xiaomi-App
+E4 : Xiaomi-Server-Region: (de, us, ru, sg).
+     Das Feld muss leer gelassen werden wenn der Roboter bei "Mainland China" angemeldet ist.
+     Das ist insbesondere bei mi robot vacuum v1 der Fall.
  
- E5  : Xiaomi Geräte-ID (0...n). Falls mehere Xiaomi-Geräte in der Cloud aktiv sind, muss hier
-       die entsprechende ID für den Roboter angegeben werden. Hierzu Debug-Level auf 2 setzen und
-       den Roboter aus der Log raussuchen. Falls nur 1 Roboter verfügbar, dann "0"
+E5  : Xiaomi Geräte-ID (0...n). Falls mehere Xiaomi-Geräte in der Cloud aktiv sind, muss hier
+      die entsprechende ID für den Roboter angegeben werden. Hierzu Debug-Level auf 2 setzen und
+      den Roboter aus der Log raussuchen. Falls nur 1 Roboter verfügbar, dann "0"
 
- E7  : Xiaomi Cloud Token - leer lassen, wenn nur <b>ein</b> Xiaomi-Gerät im Einsatz ist. Ansonsten Hinweise bei A 10 beachten.
+E7  : Xiaomi Cloud Token - leer lassen, wenn nur <b>ein</b> Xiaomi-Gerät im Einsatz ist. Ansonsten Hinweise bei A 10 beachten.
  
- E9  : Debug: [0..2], 0= aus, 2 = maximal
+E9  : Debug: [0..2], 0= aus, 2 = maximal
 
- E10 und E11 sind Optional, wenn die Xiaomi-Cloud nicht benutzt werden soll. Nur für gehackte Roboter!
- E10 : Roboroc- IP-Adresse (WLAN)
- E11 : Roboroc- Token
- E12 : valetudo. Falls auf dem Roboter valetudo installiert ist, muss hier eine 1 angegeben werden.
-       Der Baustein gibt auf A40 die URL für die Reinigungskarten von valetudo aus.
+E10 und E11 sind Optional, wenn die Xiaomi-Cloud nicht benutzt werden soll. Nur für gehackte Roboter!
+ 
+E10 : Roboroc- IP-Adresse (WLAN)
+E11 : Roboroc- Token
+E12 : valetudo. Falls auf dem Roboter valetudo installiert ist, muss hier eine 1 angegeben werden.
+      Der Baustein gibt auf A40 die URL für die Reinigungskarten von valetudo aus.
 
- Bitte keine komplexen Trigger-Logiken an diese Eingänge hängen:
- Einfach nur eine '1' senden. Der Eingang <b>darf</b> nicht zurückgesetzt werden!
-
- E14 : Kommando-ID:
-        1 = Reinigung starten / fortsetzen
-        2 = Stopp
-        3 = Pause
-        4 = Spot Reinigung
-        5 = Zur Basis
-        6 = 'finde mich' - Roboter sagt 'hier bin ich'
-        10 = Segmentreinigung fortsetzen
-
- E18 : Lade Karte. ID aus Liste A12.
+<h2>Kommandos</h2>
+E14 : Kommando-ID:
+<ul>
+        <li>1 = Reinigung starten / fortsetzen</li>
+        <li>2 = Stopp</li>
+        <li>3 = Pause</li>
+        <li>4 = Spot Reinigung</li>
+        <li>5 = Zur Basis</li>
+        <li>6 = 'finde mich' - Roboter sagt 'hier bin ich'</li>
+        <li>10 = Segmentreinigung fortsetzen</li>
+        <li>13 = Manuelle Absaugung starten (Nur Roboroc mit Absaugstation)</li>
+        <li>14 = Manuelle Absaugung abbrechen (Nur Roboroc mit Absaugstation)</li>
+</ul>
+E18 : Lade Karte. ID aus Liste A12.
        Der Roboter stellt die Reinigungskarte um.
  
- E19 : Ziel-Koordinaten
+E19 : Ziel-Koordinaten
        X,Y-Position in der Karte, wo der Roboter hinfahren soll
  
- E20 : Komma separierte Segment-IDs. Dieser Eingang wird vom VSE_1015 Ko2 gesetzt. Datentyp: Variant
-       Wenn die Zonen bekannt sind, kann hier auch eine Liste manuell eingefügt werden, Beispiel: 1,3,4
+E20 : Komma separierte Segment-IDs. Dieser Eingang wird vom VSE_1015 Ko2 gesetzt. Datentyp: Variant
+      Wenn die Zonen bekannt sind, kann hier auch eine Liste manuell eingefügt werden, Beispiel: 1,3,4
+      Falls diese Flächen mehrfach gereinigt werden sollen, wird mit einem ";" die Anzahl der Reinigungsvorgänge angegeben (1..3)
+      Beispiel: 1,3,4;3 - so werden die angegebenen Zonen 3x gereinigt.
 
- E23 : Wartung zurücksetzen. Eingangswert ist ein String:
-        Filter: filter_work_time
-        Seitenbürste: side_brush_work_time
-        Hauptbürste: main_brush_work_time
-        Sensoren: sensor_dirty_time
-        Wasserfilter: filter_element_work_time
- E24 : Entweder 1..100 (Angabe in Prozent)
-       oder bei Roborock S5 / S6:
-        101 = Leise
-        102 = Balanciert
-        103 = Turbo
-        104 = Max
-        105 = Schonend
- 
- E30 : Roboter automatisch befreien. Die Funktion ist aktuell nicht implementiert,
-       dient aber dazu, dass wenn dieser sich irgendwo festfährt, dass der Baustein versucht diesen
-       erneut zu starten. So kann in einigen Fällen der Roboter automatisch weitermachen.
-       Dieser Wert gibt die Anzahl der Versuche wieder. Default = 3
+E23 : Wartung zurücksetzen. Eingangswert ist ein String:
+<ul>
+        <li>Filter: filter_work_time</li>
+        <li>Seitenbürste: side_brush_work_time</li>
+        <li>Hauptbürste: main_brush_work_time</li>
+        <li>Sensoren: sensor_dirty_time</li>
+        <li>Wasserfilter: filter_element_work_time</li>
+</ul>
 
- E40 : Gültigkeitsdauer der Statistiken in Stunden. Nach ablauf dieser Zeit wird die Statistik
-       erneut vom Roboter abgerufen. Default: Alle 24 Stunden.
- E41 : Intervall Livemap Aktualisierung. Die Zeitangabe ist in 20 Sekunden-Schritten. Achtung, der Baustein wird weitehrin
-       per E1-Trigger ausgeführt, d.h. wenn hier eine niedrigere Zeit angegeben ist, ,wie der E1 auslöst, dann gibt E1
-       das Intervall vor.
- 
- A1  : Reinigung beendet
- A2  : Batterie [%]
- A3  : Aktuelle Fehlermeldung
- A4  : Aktueller Status
- A5  : Reinigung aktiv
- A6  : Wischeinheit verbunden
- A7  : Saugmodus: [mögliche Werte: Spezifisch, Wischen, Max, Turbo, Balance, Leise]
+E24 : Entweder 1..100 (Angabe in Prozent) oder bei Roborock S5 / S6:
+<ul>
+        <li>101 = Leise</li>
+        <li>102 = Balanciert</li>
+        <li>103 = Turbo</li>
+        <li>104 = Max</li>
+        <li>105 = Schonend</li>
+        <li>108 = Max+ (Ab S7</li>
+</ul>
 
- Cloud-Informationen
+E25: ab Roboroc S7: 3 Byte Eingang: (Saugmodus, Wischmodus, Wischart)
+<table border=0 cellpadding=0 cellspacing=0>
+<tr><td><b>Byte 1</b>: Saugmodus&nbsp;</td><td><b>Byte 2</b>: Wischmodus&nbsp;</td><td><b>Byte 3</b>: Wischart&nbsp;</td></tr>
+<tr><td valign="top">
+<ul>
+        <li>101 = Leise</li>
+        <li>102 = Balanciert</li>
+        <li>103 = Turbo</li>
+        <li>104 = Max</li>
+        <li>105 = Nur wischen</li>
+        <li>108 = Max+</li>
+</ul>
+</td><td valign="top">
+<ul>
+        <li>201 = Sanft</li>
+        <li>202 = Mittel</li>
+        <li>203 = Intensiv</li>                        
+</ul>
+</td><td valign="top">
+<ul>
+        <li>300 = Standard</li>
+        <li>301 = Gründlich</li>
+</ul>
+</td></tr></table>
 
- A10 : Xiaomi Cloud Token
+Übersicht für Roboroc ab S7
+<table border=0 cellpadding=0 cellspacing=0>
+<tr><td>Modus</td><td>Byte1&nbsp;</td><td>Byte2&nbsp;</td><td>Byte3&nbsp;</td></tr>
+<tr><td>Vac&Mop / Leise + Sanft</td><td>101</td><td>201</td></tr>
+<tr><td>Vac&Mop / Leise + Mittel</td><td>101</td><td>202</td></tr>
+<tr><td>Vac&Mop / Leise + Intensiv</td><td>101</td><td>203</td></tr>
+<tr><td>Vac&Mop / Normal + Sanft</td><td>102</td><td>201</td></tr>
+<tr><td>Vac&Mop / Normal + Mittel</td><td>102</td><td>202</td></tr>
+<tr><td>Vac&Mop / Normal + Intensiv</td><td>102</td><td>203</td></tr>
+<tr><td>Vac&Mop / Turbo + Sanft</td><td>103</td><td>201</td></tr>
+<tr><td>Vac&Mop / Turbo + Mittel</td><td>103</td><td>202</td></tr>
+<tr><td>Vac&Mop / Turbo + Intensiv</td><td>103</td><td>203</td></tr>
+<tr><td>Vac&Mop / Max + Sanft</td><td>104</td><td>201</td></tr>
+<tr><td>Vac&Mop / Max + Mittel</td><td>104</td><td>202</td></tr>
+<tr><td>Vac&Mop / Max + Intensiv</td><td>104</td><td>203</td></tr>
+<tr><td>Individuell</td><td>106</td><td>204</td></tr>
+<tr><td>Nur Saugen / Leise</td><td>101</td><td>200</td></tr>
+<tr><td>Nur Saugen / Normal</td><td>102</td><td>200</td></tr>
+<tr><td>Nur Saugen / Turbo</td><td>103</td><td>200</td></tr>
+<tr><td>Nur Saugen / Max</td><td>104</td><td>200</td></tr>
+<tr><td>Nur Saugen / Max+</td><td>108</td><td>200</td></tr>
+<tr><td>Nur Wischen / Sanft / Standard</td><td>105</td><td>201</td><td>300</td></tr>
+<tr><td>Nur Wischen / Mittel / Standard</td><td>105</td><td>202</td><td>300</td></tr>
+<tr><td>Nur Wischen / Intensiv / Standard</td><td>105</td><td>203</td><td>300</td></tr>
+<tr><td>Nur Wischen / Sanft / Gründlich</td><td>105</td><td>201</td><td>301</td></tr>
+<tr><td>Nur Wischen / Mittel / Gründlich</td><td>105</td><td>202</td><td>301</td></tr>
+<tr><td>Nur Wischen / Intensiv / Gründlich</td><td>105</td><td>203</td><td>301</td></tr>
+</table>
+                        
+Beispiel: E25=105,203,301 = Nur Wischen, Invensiv, Gründlich
+                        
+E30 : Roboter automatisch befreien. Die Funktion ist aktuell nicht implementiert,
+      dient aber dazu, dass wenn dieser sich irgendwo festfährt, dass der Baustein versucht diesen
+      erneut zu starten. So kann in einigen Fällen der Roboter automatisch weitermachen.
+      Dieser Wert gibt die Anzahl der Versuche wieder. Default = 3
+
+E40 : Gültigkeitsdauer der Statistiken in Stunden. Nach ablauf dieser Zeit wird die Statistik
+      erneut vom Roboter abgerufen. Default: Alle 24 Stunden.
+
+E41 : Intervall Livemap Aktualisierung. Die Zeitangabe ist in 20 Sekunden-Schritten. Achtung, der Baustein wird weitehrin
+      per E1-Trigger ausgeführt, d.h. wenn hier eine niedrigere Zeit angegeben ist, ,wie der E1 auslöst, dann gibt E1
+      das Intervall vor.
+
+<h1>Ausgänge</h1> 
+A1  : Reinigung beendet
+A2  : Batterie [%]
+A3  : Aktuelle Fehlermeldung
+A4  : Aktueller Status
+A5  : Reinigung aktiv
+A6  : Wischeinheit verbunden
+A7  : Saugmodus: [mögliche Werte: Spezifisch, Wischen, Max, Turbo, Balance, Leise]
+A8  : Kommaseparierte Rohwerte für Saugmodus, Wischmodus, Wischart
+                        
+<h2>Cloud-Informationen</h2>
+A10 : Xiaomi Cloud Token
        Nur verwenden, wenn mehere Geräte im Einsatz sind. Dieser Wert muss in einer Variable abgespeichert werden, die dann mit dem Eingang E7 verbunden ist.
 
- A12 : Verfügbare Karten
-       Ausgabeformat:
+A12 : Verfügbare Karten
+      Ausgabeformat:
  
-       ID,Bezeichnung
+      ID,Bezeichnung
 
-       Sind mehere Ebenen angelegt, so werden diese dann mit einem Semikolon separiert. Beispiel:
-       0;Erdgeschoss,1;Obergeschoss
+      Sind mehere Ebenen angelegt, so werden diese dann mit einem Semikolon separiert. Beispiel:
+      0;Erdgeschoss,1;Obergeschoss
 
-       Wenn die ID an E18 übermittelt wird, dann lädt der Roboter die entsprechende Karte
+      Wenn die ID an E18 übermittelt wird, dann lädt der Roboter die entsprechende Karte
 
- A13 : aktive Karte. Hier wird die Index-Nummer der aktiven Karte ausgegeben, z.B. "0"
+A13 : aktive Karte. Hier wird die Index-Nummer der aktiven Karte ausgegeben, z.B. "0"
  
- Aktuelle Statistik
- A18 : letzte Reinigungsdauer [min]
- A19 : letzte Reinigungsfläche [m²]
+<h2>Aktuelle Statistik</h2>
+A18 : letzte Reinigungsdauer [min]
+A19 : letzte Reinigungsfläche [m²]
 
- Statistiken über bisherige Reinigungen:
- A20 : Gesamtzeit [h]
- A21 : Gereinigte Fläche [m²]
- A22 : Anzahl Reinigungen
+<h2>Statistiken über bisherige Reinigungen:</h2>
+A20 : Gesamtzeit [h]
+A21 : Gereinigte Fläche [m²]
+A22 : Anzahl Reinigungen
+A23 : Anzahl Absaugungen (Absaugstation benötigt), sonst immer 0
 
- Instandhaltungszeiten:
- A24 : Laufzeit Filter. Max: 150 Stunden
- A25 : Laufzeit Seitenbürste. Max. 200 Stunden
- A26 : Laufzeit Hauptbürste. Max 300 Stunden
- A27 : Laufzeit Sensoren. Max 30 Stunden
- A28 : Laufzeit Wassertankfilter. Max. 100 Stunden
- A29 : RSSI - WIFI-Signalstärke
+<h2>Instandhaltungszeiten:</h2>
+A24 : Laufzeit Filter. Max: 150 Stunden
+A25 : Laufzeit Seitenbürste. Max. 200 Stunden
+A26 : Laufzeit Hauptbürste. Max 300 Stunden
+A27 : Laufzeit Sensoren. Max 30 Stunden
+A28 : Laufzeit Wassertankfilter. Max. 100 Stunden
+A29 : RSSI - WIFI-Signalstärke
 
- A34 : Debug-Info. Wird später entfernt, wenn der Baustein stabil läuft.
+A34 : Debug-Info. Wird später entfernt, wenn der Baustein stabil läuft.
 
- A40 : URL zur RR-Datei für die weiterverarbeitung
+A40 : URL zur RR-Datei für die weiterverarbeitung
+
+<h1>Wichtige Hinweise:</h1>
+ Wenn sich EDOMI Server und Roborock in unterschiedlichen VLANs befinden ist sowohl eine Firewallfreischaltung
+ (Quelle: EDOMI-IP / Ziel: Roborock-IP, Port 54321)
+ als auch Masquerading notwendig.
+ (Quelle: EDOMI-IP, Ziel: Roborock-IP, Outgoing-Interface: VLAN-Interface des Routers/Firewall im Roborock VLAN)
+ 
 ###[/HELP]###
 
 
@@ -227,7 +311,8 @@
                     ($E[19]['refresh'] && $E[19]['value']) || // X,Y-Position
                     ($E[20]['refresh'] && $E[20]['value']) || // Segment-Reinigung
                     ($E[23]['refresh'] && $E[23]['value']) || // Wartung zurücksetzen
-                    ($E[24]['refresh'] && $E[24]['value'])    // Saugleistung
+                    ($E[24]['refresh'] && $E[24]['value']) || // Saugleistung
+                    ($E[25]['refresh'] && $E[25]['value']) // Saug,Wisch,Mop-Modus
                 ){
                     $myRobotCommand = 0;
                     /*
@@ -244,10 +329,13 @@
                       10 = Segmentreinigung fortsetzen
                       11 = Fahre zu Position aus E[19]
                       12 = Lade Reinigungskarte aus E[18]
+                      13 = Manuelle Absaugung starten (Nur Roboroc mit Absaugstation)
+                      14 = Manuelle Absaugung abbrechen (Nur Roboroc mit Absaugstation)
+                      15 = Saug,Wisch-Modus,Mop-Modus
                     */
 
                     if ($E[14]['refresh'] && $E[14]['value']) {
-                        if (in_array ($E[14]['value'], array (1,2,3,4,5,6,10,11,12))) {
+                        if (in_array ($E[14]['value'], array (1,2,3,4,5,6,10,11,12,13,14))) {
                             $myRobotCommand = $E[14]['value'];
                         } else {
                             LB_LBSID_debug($E[5]['value'],$E[9]['value'], 0, "Kommando-ID ist ungültig (".$E[14]['value'].")");
@@ -262,6 +350,8 @@
                         $myRobotCommand = 11;
                     } else if ($E[18]['refresh'] && $E[18]['value'] != '') {
                         $myRobotCommand = 12;
+                    } else if ($E[25]['refresh'] && $E[25]['value']) {
+                        $myRobotCommand = 15;
                     }
              
                     logic_setVar($id,2,$myRobotCommand);
@@ -357,7 +447,7 @@
  } else if (!empty($E[7]['value'])) {
      $cloudToken = $E[7]['value'];
                 
-     exec_debug(1, "using Xiaomi cloud token=". $cloudToken);
+     exec_debug(2, "using Xiaomi cloud token=". $cloudToken);
                 
      if (strlen ($cloudToken) > 10) {
          list ($serviceToken, $ssecurity, $userId) = explode ("\n",$cloudToken);
@@ -366,7 +456,7 @@
          $V[4] = $ssecurity;
          $V[5] = $userId;
 
-         exec_debug(1, "restoreSession by cloud token");
+         exec_debug(2, "restoreSession by cloud token");
          goto restoreCredentials;
      }
  } else {
@@ -433,9 +523,12 @@
              case 8:
                  $subCmds = explode ("!!:",$E[20]['value']);
                  if (!empty ($subCmds[0])) {
-                     $segmentID = $subCmds[0];
-                     exec_debug(2, "Segment-Reinigung ".$segmentID);
-                     $roboroc->segmentCleaning($segmentID);
+                     $sr = explode (";",$subCmds[0]);
+
+                     $repeat = (isset ($sr[1])) ? $sr[1] : 1;
+
+                     exec_debug(2, "Segment-Reinigung: ".$subCmds[0]);
+                     $roboroc->segmentCleaning($sr[0], $repeat);
                  }
                  if (!empty ($subCmds[1])) {
                      switch ($subCmds[1]) {
@@ -468,21 +561,51 @@
                  $val = $E[18]['value'];
                  if ($val != '') {
                      $roboroc->setMultiMap ($val);
+                     //logic_setVar($id, 12, time() + 15); // Refresh cleaningmaps in 15 seconds v1.01b
+                     
                      $refreshCleaningMap = 1;
                      exec_debug(2, "Lade Karte $val");
                  } else {
                      exec_debug(0, "Fehler parameter E18, Wert ist leer: '$val'");
                  }
+                 break;
+             case 13:
+                 $roboroc->startDustCollection();
+                 exec_debug(2, "startDustCollection");
 
+                 logic_setVar($id, 10, getMicrotime() + 45); // Refresh cleaning stats in 45 seconds
+                 break;
+             case 14:
+                 $roboroc->abortDustCollection();
+                 exec_debug(2, "abortDustCollection");
+
+                 logic_setVar($id, 10, getMicrotime() + 45); // Refresh cleaning stats in 45 seconds
+                 break;
+             case 15:
+                 $arr = explode(",", $E[25]['value']);
+                 if (is_array($arr)) {
+                     if (array_key_exists(0,$arr)) {
+                         $roboroc->setFanSpeed($arr[0]);
+                         exec_debug(2, "Saugleistung " . $arr[0]);
+                     }
+                     if (array_key_exists(1,$arr)) {
+                         $roboroc->setWaterBoxCustomMode($arr[1]);
+                         exec_debug(2, " Wisch-Modus: " . $arr[1]);
+                     }
+                     if (array_key_exists(2,$arr)) {
+                         $roboroc->setMopMode($arr[2]);
+                         exec_debug(2, "Mop-Modus: " . $arr[2]);
+                     }
+                 } else {
+                     exec_debug(1, "E25 Fehler: ".$E[25]['value']);
+                 }
                  break;
              }
 
              $lastRobotCleaningState = $V[8];
              $currentRoboCleaningState = ($roboroc->Info_Status->inReturning()*10) + $roboroc->Info_Status->inCleaning();
 
-             /*
-               inCleaning = 3 bei Raumreinigung
-             */
+             // inCleaning = 3 bei Raumreinigung
    
              exec_debug (2, outputDebug ("Info_Status",$roboroc->Info_Status->Info_Status));
              exec_debug (2, "Aktueller Status: $currentRoboCleaningState");
@@ -541,7 +664,9 @@
              logic_setOutput($id, 5, $currentRoboCleaningState);
              logic_setOutput($id, 6, $roboroc->Info_Status->waterBoxStatus());
              logic_setOutput($id, 7, $roboroc->getFanPowerText());
-             //logic_setOutput($id, 7, $roboroc->getTranslatedStringFromArray($roboroc->translatedFanCodes, $roboroc->Info_Status->fanPowerLevel()));
+
+             $rawValues = implode (",", array ($roboroc->Info_Status->fanPowerLevel(), $roboroc->Info_Status->waterBoxMode(), $roboroc->Info_Status->mopMode()));
+             logic_setOutput($id, 8, $rawValues);
 
              logic_setOutput($id, 29, $roboroc->Info_miIOInfo->getRSSI());
              
@@ -558,6 +683,8 @@
                      logic_setOutput($id, 20, $roboroc->Info_CleaningSummary->totalTime());
                      logic_setOutput($id, 21, $roboroc->Info_CleaningSummary->totalArea());
                      logic_setOutput($id, 22, $roboroc->Info_CleaningSummary->totalCleanups());
+                     logic_setOutput($id, 23, $roboroc->Info_CleaningSummary->dustCollectionCount());
+
 
                      logic_setVar($id, 10, getMicrotime() + ($E[40]['value']*60*60)); // Nächsten refresh merken
                  }
@@ -578,7 +705,7 @@
              if ($refreshCleaningMap) {
                  if ($roboroc->getMultiMaps() != FALSE) {
                      exec_debug (2,outputDebug ("multimaps ",$roboroc->Info_MultiMaps->Info));
-
+                     $roboroc->getStatus();// ##### added by Jonofe #####
                      logic_setOutput($id, 12, $roboroc->Info_MultiMaps->getAllMaps());
                      logic_setOutput($id, 13, $roboroc->Info_Status->getActiveMapIndex());
                  }
@@ -758,7 +885,7 @@ class Crypt_Rc4 {
 }    //end of RC4 class
 
  /*
-  * (w) 2020 by Nima Ghassemi Nejad (sipiyou@hotmail.com)
+  * (w) 2020-2022 by Nima Ghassemi Nejad (sipiyou@hotmail.com)
   *
   *  01.05.2020 - v 0.1 - NGN initial release
   *  05.05.2020 -   0.2 -     added support for xiaomi cloud login+authentification
@@ -816,12 +943,21 @@ class Crypt_Rc4 {
   *  12.10.2021 -   0.994     Bugfix in help
   *  03.01.2022 -   0.999     support for new RC4 encrypted api calls
   *  14.01.2022 -   1.0       bugfix for getmapurl + deadlock upon getmap
+  *  30.05.2022 -   1.0b      dustcollection status
+  *  14.06.2022 -   1.01      php error suppression, app_start_collect_dust, app_stop_collect_dust (S7 dust collection support)
+  *  21.06.2022 -   1.01b     possible bugfix for map switching
+  *  24.06.2022 -   1.01c     getWaterBoxCustomMode, setWaterBoxCustomMode, getMopMode, setMopMode
+  *  25.06.2022 -   1.01d     added support for repeating on cleaning zones
+  *  26.06.2022 -   1.01e     handling for fan_power, water_box_mode, mop_mode in info_status
+  *  30.06.2022 -   1.01f     bugfix "Fehlercode: 8 | Zeile: 1947" ?
+  *  01.08.2022 -   1.01g     bugfix for S7 handling + php error suppression in getSendCmd. Thanks to jonofe!
 
   * This project uses informations retrived from these sources:
   * 
   * https://github.com/marcelrv/XiaomiRobotVacuumProtocol
   * https://python-miio.readthedocs.io/en/latest/vacuum.html
   * https://github.com/iobroker-community-adapters/ioBroker.mihome-vacuum
+  * https://github.com/rytilahti/python-miio/
   */
 
  class udpHandler {
@@ -1657,6 +1793,8 @@ class Crypt_Rc4 {
          "dnd_enabled"=> 0,
          "map_status"=> 0,
          "lock_status"=> 0,
+         "water_box_mode" => 0,
+         "mop_mode" => 0,
      );
 
      public function __construct () {
@@ -1708,6 +1846,14 @@ class Crypt_Rc4 {
 
      public function fanPowerLevel() {
          return ($this->getIntStateFromArray ($this->Info_Status, "fan_power"));
+     }
+
+     public function waterBoxMode() {
+         return ($this->getIntStateFromArray ($this->Info_Status, "water_box_mode"));
+     }
+
+     public function mopMode() {
+         return ($this->getIntStateFromArray ($this->Info_Status, "mop_mode"));
      }
 
      public function getCleanAreaTime () {
@@ -1810,6 +1956,7 @@ class Crypt_Rc4 {
          "totalArea" => 0,
          "totalCleanups" => 0,
          "cleaningRecordIDs" => array(),
+         "dustCollectionCount" => 0,
      );
      
      public function __construct () {
@@ -1834,6 +1981,8 @@ class Crypt_Rc4 {
              $this->Info_CleaningSummary["totalArea"] = $res['clean_area'];
              $this->Info_CleaningSummary["totalCleanups"] = $res['clean_count'];
              $this->Info_CleaningSummary["cleaningRecordIDs"] = $res['records'];
+
+             $this->Info_CleaningSummary["dustCollectionCount"] = $this->getIntStateFromArray ($res, "dust_collection_count");
              
              $this->normalize($this->Info_CleaningSummary["totalTime"], (60*60)); // store value in [h]
              $this->normalize($this->Info_CleaningSummary["totalArea"], (1000*1000)); // store value in m²
@@ -1849,6 +1998,9 @@ class Crypt_Rc4 {
      }
      public function totalCleanups() {
          return ($this->getIntStateFromArray($this->Info_CleaningSummary, "totalCleanups"));
+     }
+     public function dustCollectionCount() {
+         return ($this->getIntStateFromArray($this->Info_CleaningSummary, "dustCollectionCount"));
      }
      public function cleaningRecordIDs() {
          /*
@@ -2038,6 +2190,7 @@ class Crypt_Rc4 {
                                  16 => array ("Go To","Fahre zum Zielpunkt"),
                                  17 => array ("Zone Clean","Zonenreinigung"),
                                  18 => array ("Room Clean","Raumreinigung"),
+                                 22 => array ("Dust collection","Staub Absaugen"),
                                  100 => array ("Fully Charged","Voll geladen"),
      );
      public $errorCodes = array (0 => array ("No error","Keine Fehler"),
@@ -2168,8 +2321,9 @@ class Crypt_Rc4 {
          if (isset($resp['result']) && ($resp['result'] == "unknown_method")) // bugfix for valetudo
              return (FALSE);
          
-         if (sizeof ($resp['result']) == 1) {
-             $resp = $resp['result'][0];
+         if (is_array($resp['result']) && (sizeof ($resp['result']) == 1)) {
+             //$resp = $resp['result'][0];
+             $resp = array_pop($resp['result']); // jonofe
          } else {
              $resp = $resp['result'];
          }
@@ -2301,9 +2455,12 @@ class Crypt_Rc4 {
          return ($ret);
      }
      
-     public function segmentCleaning ($segments) {
+     public function segmentCleaning ($segments, $repeat) {
+         if (!isset ($repeat)) $repeat = 1;
          $ret = $this->getSendCmd (array ("method" => "app_segment_clean",
-                                          "params" => $this->stringToIntArray($segments)));
+                                          "params" => array (array("segments" => $this->stringToIntArray($segments),
+                                                                   "repeat" => intval($repeat)))
+         ));
          return ($ret);
      }
           
@@ -2351,6 +2508,16 @@ class Crypt_Rc4 {
          return ($this->getTranslatedStringFromArray ($this->Info_Status->fanCodes, $returnIndex));
      }
 
+     public function startDustCollection() {
+         $ret = $this->getSendCmd ("app_start_collect_dust");
+         return ($ret);
+     }
+
+     public function abortDustCollection() {
+         $ret = $this->getSendCmd ("app_stop_collect_dust");
+         return ($ret);
+     }
+     
      public function setFanSpeed ($val) {
          $ret = $this->getSendCmd (array ("method" => "set_custom_mode",
                                           "params" => $this->stringToIntArray($val)));
@@ -2361,6 +2528,36 @@ class Crypt_Rc4 {
          return ($ret);
      }
 
+     public function getWaterBoxCustomMode() {
+         $ret = $this->getSendCmd ("get_water_box_custom_mode");
+         return ($ret);
+     }
+     
+     public function setWaterBoxCustomMode ($val) {
+         $ret = $this->getSendCmd (array ("method" => "set_water_box_custom_mode",
+                                          "params" => $this->stringToIntArray($val)));
+         if ($ret == 'ok') {
+             // refresh status
+             $this->getWaterBoxCustomMode();
+         }
+         return ($ret);
+     }
+
+     public function getMopMode() {
+         $ret = $this->getSendCmd ("get_mop_mode");
+         return ($ret);
+     }
+
+     public function setMopMode ($val) {
+         $ret = $this->getSendCmd (array ("method" => "set_mop_mode",
+                                          "params" => $this->stringToIntArray($val)));
+         if ($ret == 'ok') {
+             // refresh status
+             $this->getMopMode();
+         }
+         return ($ret);
+     }
+     
      public function tryToFreeRobot() {
          switch ($this->Info_Status->errorCode()) {
          case 3: // Wheel floating
